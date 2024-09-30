@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  a();
+  async function a()  {
+    const date = new Date().toISOString();
+    const timeZoneOffset = 240;
+
+    // { offset: 240, abbr: МСК }
+    console.log(`На сервер отправляю ${date} и разницу в минутах во времени ${timeZoneOffset}`);
+
+    const responseDate = new Date(date);
+    const preparedDate = new Date(
+            responseDate.getTime()
+            - Math.abs(responseDate.getTimezoneOffset() * 60 * 1000)
+            + (timeZoneOffset * 60 * 1000)
+    );
+
+    console.log(new Date(responseDate).toLocaleString('en-US', {timeZone: 'UTC'}))
+    const timeZoneOffsetNext = 180;
+
+    const requestDate = new Date();
+
+    console.log(`На сервер отправляю ${requestDate} и разницу в минутах во времени ${timeZoneOffsetNext}`);
+    console.log(preparedDate);
+  }
+</script>
+</body>
+</html>
